@@ -1,2 +1,2 @@
 # compasscine
-Uma API para c
+Uma API para gerenciar uma bilheteria de cinema

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import moviesRouter from '../../../movies/routes/movies.routes';
-import sessionsRouter from '../../../sessions/routes/sessions.routes';
-import ticketsRouter from '../../../tickets/routes/tickets.routes';
+import moviesRouter from '../../../modules/movies/routes/movies.routes';
+import sessionsRouter from '../../../modules/sessions/routes/sessions.routes';
+import ticketsRouter from '../../../modules/tickets/routes/tickets.routes';
 
 const routes = Router();
 

@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Session from 'src/api/modules/sessions/typeorm/Session';
 import { Expose } from 'class-transformer';
 
 @Entity('movies')
@@ -21,7 +23,7 @@ class Movie {
   @Column()
   description: string;
 
-  @Column()
+  @Column('simple-array')
   actors: string[];
 
   @Column()
@@ -29,6 +31,9 @@ class Movie {
 
   @Column()
   release_date: Date;
+
+  @OneToMany(() => Session, session => session.movie)
+  sessions: Session[];
 
   @CreateDateColumn()
   created_at: Date;

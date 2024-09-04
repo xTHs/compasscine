@@ -22,7 +22,7 @@ export class CreateSessao1725385716443 implements MigrationInterface {
           {
             name: 'day',
             type: 'timestamp',
-            default: 'now',
+            default: 'now()',
           },
           {
             name: 'time',

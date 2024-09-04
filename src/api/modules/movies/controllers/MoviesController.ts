@@ -6,13 +6,11 @@ import ShowMovieService from '../services/ShowMovieService';
 
 export default class MoviesController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { image, name, description, actors, genre, release_date } =
-      request.body;
+    const { name, description, actors, genre, release_date } = request.body;
 
     const createMovie = new CreateMovieService();
 
     const movie = await createMovie.execute({
-      image,
       name,
       description,
       actors,

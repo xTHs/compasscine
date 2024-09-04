@@ -4,7 +4,6 @@ import MoviesRepository from '../typeorm/repositories/MoviesRepository';
 import AppError from 'src/api/shared/errors/AppError';
 
 interface IRequest {
-  image: string;
   name: string;
   description: string;
   actors: string[];
@@ -14,7 +13,6 @@ interface IRequest {
 
 class CreateMovieService {
   public async execute({
-    image,
     name,
     description,
     actors,
@@ -28,7 +26,6 @@ class CreateMovieService {
     }
 
     const movie = moviesRepository.create({
-      image,
       name,
       description,
       actors,

@@ -17,7 +17,7 @@ class ShowMovieService {
     });
 
     if (!movie) {
-      throw new AppError('Movie not found', '404');
+      throw new AppError('Movie not found', '404', 400);
     }
 
     if (movie.release_date) {

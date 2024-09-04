@@ -12,11 +12,8 @@ import { format } from 'date-fns';
 
 @Entity('movies')
 class Movie {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  image: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column()
   name: string;
@@ -41,15 +38,6 @@ class Movie {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @Expose({ name: 'image_url' })
-  getAvatarUrl(): string | null {
-    if (!this.image) {
-      return null;
-    }
-
-    return `${process.env.APP_API_URL}/files/${this.image}`; // arrumar essa rota
-  }
 
   @Expose({ name: 'formatted_release_date' })
   getFormattedReleaseDate(): string {

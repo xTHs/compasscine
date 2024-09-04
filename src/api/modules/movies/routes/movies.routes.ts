@@ -22,7 +22,6 @@ moviesRouter.post(
   celebrate({
     [Segments.BODY]: {
       movie_id: Joi.string().uuid().required(),
-      image: Joi.required(),
       name: Joi.string().required(),
       description: Joi.string().required(),
       actors: Joi.string().required(),

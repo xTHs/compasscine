@@ -5,14 +5,14 @@ import './src/database/connection';
 import bodyParser from 'body-parser';
 import 'express-async-errors';
 import { errors } from 'celebrate';
-import AppError from './src/api/errors/AppError';
+import AppErrot from 'src/api/shared/errors/AppError';
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(routes);
+app.use('/api', routes);
 
 app.use(errors());
 

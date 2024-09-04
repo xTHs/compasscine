@@ -2,6 +2,7 @@ import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Movie from '../typeorm/entities/Movie';
 import MoviesRepository from '../typeorm/repositories/MoviesRepository';
+import { format } from 'date-fns';
 
 interface IRequest {
   movie_id: string;
@@ -16,7 +17,14 @@ class ShowMovieService {
     });
 
     if (!movie) {
-      throw new AppError('Movie not found');
+      throw new AppError('Movie not found', '404');
+    }
+
+    if (movie.release_date) {
+      movie.release_date = format(
+        new Date(movie.release_date),
+        'dd-MM-yyyy',
+      ) as any;
     }
 
     return movie;

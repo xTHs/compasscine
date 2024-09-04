@@ -33,8 +33,6 @@ moviesRouter.post(
   moviesController.create,
 );
 
-moviesRouter.get;
-
 moviesRouter.put(
   '/movies/:id',
   celebrate({

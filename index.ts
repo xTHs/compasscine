@@ -1,18 +1,18 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
-import routes from './src/routes';
+import routes from './src/api/shared/http/routes';
 import './src/database/connection';
 import bodyParser from 'body-parser';
 import 'express-async-errors';
 import { errors } from 'celebrate';
-import AppError from './src/api/errors/AppError';
+import AppError from './src/api/shared/errors/AppError';
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(routes);
+app.use('/api', routes);
 
 app.use(errors());
 

@@ -8,8 +8,9 @@ export class CreateMovies1725399785976 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'INTEGER',
             isPrimary: true,
+            isGenerated: true,
             generationStrategy: 'increment',
           },
           {

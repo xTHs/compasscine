@@ -2,11 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  //OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-//import Session from 'src/api/modules/sessions/typeorm/Session';
 import { Expose } from 'class-transformer';
 import { format } from 'date-fns';
 

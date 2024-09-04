@@ -1,25 +1,26 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
-import routes from './src/routes';
+import routes from './src/api/shared/http/routes';
 import './src/database/connection';
 import bodyParser from 'body-parser';
 import 'express-async-errors';
 import { errors } from 'celebrate';
-import AppError from './src/api/errors/AppError';
+import AppError from './src/api/shared/errors/AppError';
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(routes);
+app.use('/api', routes);
 
 app.use(errors());
 
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppError) {
-      return response.status(error.statusCode).json({
+      return response.status(error.code).json({
+        code: error.code,
         status: 'error',
         message: error.message,
       });

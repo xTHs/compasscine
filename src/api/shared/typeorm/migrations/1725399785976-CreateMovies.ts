@@ -8,15 +8,9 @@ export class CreateMovies1725399785976 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
-            generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
-          },
-          {
-            name: 'image',
-            type: 'varchar',
-            isNullable: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'name',
@@ -40,18 +34,19 @@ export class CreateMovies1725399785976 implements MigrationInterface {
           },
           {
             name: 'created_at',
-            type: 'timestamp',
+            type: 'timestamp with time zone',
             default: 'now()',
           },
           {
             name: 'updated_at',
-            type: 'timestamp',
+            type: 'timestamp with time zone',
             default: 'now()',
           },
         ],
       }),
     );
   }
+
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('movies');
   }

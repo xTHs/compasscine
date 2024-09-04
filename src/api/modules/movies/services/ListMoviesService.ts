@@ -7,8 +7,8 @@ class ListMoviesService {
   public async execute(): Promise<Movie[]> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movies = await moviesRepository.find({ relations: ['sessions'] });
-
+    //const movies = await moviesRepository.find({ relations: ['sessions'] });
+    const movies = await moviesRepository.find();
     const formattedMovies = movies.map(movie => {
       if (movie.release_date) {
         movie.release_date = format(

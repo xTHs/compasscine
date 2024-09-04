@@ -20,9 +20,14 @@ class CreateMovieService {
     release_date,
   }: IRequest): Promise<Movie> {
     const moviesRepository = getCustomRepository(MoviesRepository);
+
     const nameExists = await moviesRepository.findByName(name);
     if (nameExists) {
-      throw new AppError('The movie has already been registered.', '400');
+      throw new AppError(
+        'The movie has already been registered.',
+        'bad request',
+        400,
+      );
     }
 
     const movie = moviesRepository.create({

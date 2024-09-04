@@ -1,7 +1,9 @@
+import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,6 +18,9 @@ class Sessao {
 
   @Column('int')
   capacity: number;
+
+  @ManyToOne(() => Movie, movie => movie)
+  movie: Movie;
 
   @Column()
   day: Date;

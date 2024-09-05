@@ -31,7 +31,11 @@ class UpdateMovieService {
     const movie = await moviesRepository.findById(id);
 
     if (!movie) {
-      throw new AppError("Movie not found");
+      throw new AppError("Movie not found","Bad Request",400);
+    }
+
+    if(description.length > 100 ){
+        throw new AppError("Description cannot exceed more than 100 characters","Bad Request",400)
     }
 
     movie.image = image;

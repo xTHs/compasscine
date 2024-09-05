@@ -13,7 +13,7 @@ class DeleteMovieService {
     const movie = await moviesRepository.findById(id);
 
     if (!movie) {
-      throw new AppError("Movie not found");
+      throw new AppError("Movie not found","Bad Request",400);
     }
 
     await moviesRepository.remove(movie);

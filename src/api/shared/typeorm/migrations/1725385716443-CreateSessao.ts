@@ -4,7 +4,7 @@ export class CreateSessao1725385716443 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'sessao',
+        name: 'session',
         columns: [
           {
             name: 'id',
@@ -44,6 +44,6 @@ export class CreateSessao1725385716443 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('sessao');
+    await queryRunner.dropTable('session');
   }
 }

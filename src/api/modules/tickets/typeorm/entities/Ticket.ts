@@ -3,36 +3,28 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
 import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
-import Ticket from 'src/api/modules/tickets/typeorm/entities/Ticket';
+import Session from 'src/api/modules/sessions/typeorm/entities/Session';
 
-@Entity('session')
-class Session {
-  @PrimaryGeneratedColumn()
+@Entity('tickets')
+class Ticket {
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column()
-  room: string;
-
-  @Column('int')
-  capacity: number;
+  @ManyToOne(() => Session, session => session.tickets)
+  session: Session;
 
   @ManyToOne(() => Movie, movie => movie.sessions)
   movie: Movie;
 
-  @OneToMany(() => Ticket, ticket => ticket.session)
-  tickets: Ticket[];
+  @Column()
+  chair: string;
 
   @Column()
-  day: Date;
-
-  @Column()
-  time: Date;
+  value: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -41,4 +33,4 @@ class Session {
   updated_at: Date;
 }
 
-export default Session;
+export default Ticket;

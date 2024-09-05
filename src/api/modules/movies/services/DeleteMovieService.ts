@@ -1,6 +1,6 @@
-import AppError from "@shared/errors/AppError";
-import { getMovieRepository } from "typeorm";
-import MoviesRepository from "../typeorm/repositories/MoviesRepository";
+import AppError from '@shared/errors/AppError';
+import { getMovieRepository } from 'typeorm';
+import MoviesRepository from '../typeorm/repositories/MoviesRepository';
 
 interface IRequest {
   id: string;
@@ -13,7 +13,7 @@ class DeleteMovieService {
     const movie = await moviesRepository.findById(id);
 
     if (!movie) {
-      throw new AppError("Movie not found","Bad Request",400);
+      throw new AppError('Movie not found', 'Bad Request', 400);
     }
 
     await moviesRepository.remove(movie);

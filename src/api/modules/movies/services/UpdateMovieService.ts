@@ -3,7 +3,6 @@ import { getMovieRepository } from 'typeorm';
 import Movie from '../typeorm/entities/Movie';
 import MoviesRepository from '../typeorm/repositories/MoviesRepository';
 
-
 interface IRequest {
   id: string;
   image: string;
@@ -31,11 +30,15 @@ class UpdateMovieService {
     const movie = await moviesRepository.findById(id);
 
     if (!movie) {
-      throw new AppError("Movie not found","Bad Request",400);
+      throw new AppError('Movie not found', 'Bad Request', 400);
     }
 
-    if(description.length > 100 ){
-        throw new AppError("Description cannot exceed more than 100 characters","Bad Request",400)
+    if (description.length > 100) {
+      throw new AppError(
+        'Description cannot exceed more than 100 characters',
+        'Bad Request',
+        400,
+      );
     }
 
     movie.image = image;
@@ -46,12 +49,10 @@ class UpdateMovieService {
     movie.release_date = release_date;
     movie.sessions = sessions;
 
-
     await moviesRepository.save(movie);
 
     return movie;
   }
 }
-
 
 export default UpdateMovieService;

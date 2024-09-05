@@ -22,7 +22,7 @@ moviesRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      description: Joi.string().required(),
+      description: Joi.string().max(100).required(),
       actors: Joi.array().items(Joi.string()).required(),
       genre: Joi.string().required(),
       release_date: Joi.date().required(),

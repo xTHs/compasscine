@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
 import routes from './src/api/shared/http/routes';
 import './src/api/shared/typeorm/connection';
 import bodyParser from 'body-parser';
-import 'express-async-errors';
 import { errors } from 'celebrate';
 import AppError from './src/api/shared/errors/AppError';
 

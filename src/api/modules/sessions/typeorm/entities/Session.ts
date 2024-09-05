@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -19,7 +20,8 @@ class Sessao {
   @Column('int')
   capacity: number;
 
-  @ManyToOne(() => Movie, movie => movie)
+  @ManyToOne(() => Movie, movie => movie.sessions)
+  @JoinColumn({ name: 'movieId' })
   movie: Movie;
 
   @Column()

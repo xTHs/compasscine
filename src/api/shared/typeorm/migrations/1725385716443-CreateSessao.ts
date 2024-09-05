@@ -4,11 +4,11 @@ export class CreateSessao1725385716443 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'sessao',
+        name: 'session',
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'INTEGER',
             isPrimary: true,
           },
           {
@@ -17,7 +17,7 @@ export class CreateSessao1725385716443 implements MigrationInterface {
           },
           {
             name: 'capacity',
-            type: 'int',
+            type: 'INTEGER',
           },
           {
             name: 'day',

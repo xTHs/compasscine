@@ -5,19 +5,19 @@ import MoviesRepository from '../typeorm/repositories/MoviesRepository';
 import { format } from 'date-fns';
 
 interface IRequest {
-  movie_id: string;
+  movie_id: number;
 }
 
 class ShowMovieService {
   public async execute({ movie_id }: IRequest): Promise<Movie> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movie = await moviesRepository.findOne(movie_id, {
-      relations: ['sessions'],
-    });
+    //const movie = await moviesRepository.findOne(movie_id, {
+    // relations: ['sessions'],
+    const movie = await moviesRepository.findById(movie_id);
 
     if (!movie) {
-      throw new AppError('Movie not found', '404', 400);
+      throw new AppError('Movie not found', '404', 404);
     }
 
     if (movie.release_date) {

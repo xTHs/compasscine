@@ -1,15 +1,18 @@
-import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('sessao')
-class Sessao {
+import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
+import Ticket from 'src/api/modules/tickets/typeorm/entities/Ticket';
+
+@Entity('session')
+class Session {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,8 +22,11 @@ class Sessao {
   @Column('int')
   capacity: number;
 
-  @ManyToOne(() => Movie, movie => movie)
+  @ManyToOne(() => Movie, movie => movie.sessions)
   movie: Movie;
+
+  @OneToMany(() => Ticket, ticket => ticket.session)
+  tickets: Ticket[];
 
   @Column()
   day: Date;
@@ -35,4 +41,4 @@ class Sessao {
   updated_at: Date;
 }
 
-export default Sessao;
+export default Session;

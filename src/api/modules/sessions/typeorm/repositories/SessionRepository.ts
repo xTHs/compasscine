@@ -12,6 +12,13 @@ class SessionRepository extends Repository<Session> {
     });
     return Session;
   }
+
+  public async findById(id: number) {
+    const session = await this.findOne({
+      where: { id },
+    });
+    return session;
+  }
 }
 
 export default SessionRepository;

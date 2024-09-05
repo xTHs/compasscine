@@ -5,26 +5,25 @@ import MoviesController from '../controllers/MoviesController';
 const moviesRouter = Router();
 const moviesController = new MoviesController();
 
-moviesRouter.get('/movies', moviesController.list);
+moviesRouter.get('/', moviesController.list);
 
 moviesRouter.get(
-  '/movies/:id',
+  '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
+      id: Joi.number().required(),
     },
   }),
   moviesController.show,
 );
 
 moviesRouter.post(
-  '/movies',
+  '/',
   celebrate({
     [Segments.BODY]: {
-      movie_id: Joi.string().uuid().required(),
       name: Joi.string().required(),
       description: Joi.string().required(),
-      actors: Joi.string().required(),
+      actors: Joi.array().items(Joi.string()).required(),
       genre: Joi.string().required(),
       release_date: Joi.date().required(),
     },

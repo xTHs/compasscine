@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import Session from 'src/api/modules/sessions/typeorm/Session';
+import Session from 'src/api/modules/sessions/typeorm/entities/Session';
 import { Expose } from 'class-transformer';
 import { format } from 'date-fns';
 
@@ -30,8 +30,8 @@ class Movie {
   @Column()
   release_date: Date;
 
-  // @OneToMany(() => Session, session => session.movie)
-  // sessions: Session[];
+  @OneToMany(() => Session, session => session)
+  sessions: Session[];
 
   @CreateDateColumn()
   created_at: Date;

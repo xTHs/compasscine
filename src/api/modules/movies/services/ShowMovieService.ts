@@ -13,20 +13,20 @@ class ShowMovieService {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
     //const movie = await moviesRepository.findOne(movie_id, {
-    // relations: ['sessions'],
-    const movie = await moviesRepository.findById(movie_id);
+    //  relations: ['sessions'],
+    // });
+
+    const movie = await moviesRepository.findOne(movie_id);
 
     if (!movie) {
-      throw new AppError('Movie not found', '404', 404);
+      throw new AppError('Movie not found', 'Bad request', 404);
     }
-
     if (movie.release_date) {
       movie.release_date = format(
         new Date(movie.release_date),
         'dd-MM-yyyy',
       ) as any;
     }
-
     return movie;
   }
 }

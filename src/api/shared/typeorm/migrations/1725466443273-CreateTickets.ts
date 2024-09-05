@@ -31,11 +31,11 @@ export class CreateTickets1725466443273 implements MigrationInterface {
           },
           {
             name: 'session_id',
-            type: 'int',
+            type: 'INTEGER',
           },
           {
             name: 'movie_id',
-            type: 'int',
+            type: 'INTEGER',
           },
           {
             name: 'created_at',

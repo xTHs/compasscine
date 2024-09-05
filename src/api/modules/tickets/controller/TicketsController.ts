@@ -22,7 +22,7 @@ export default class TicketsController {
 
     const ticketReturn = {
       id: ticket.id,
-      session_id: ticket.session_id,
+      session_id: ticket.session,
       chair: ticket.chair,
       value: ticket.value,
     };
@@ -50,7 +50,7 @@ export default class TicketsController {
 
     const ticketReturn = {
       id: ticket.id,
-      session_id: ticket.session_id,
+      session_id: ticket.session,
       chair: ticket.chair,
       value: ticket.value,
     };

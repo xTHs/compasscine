@@ -24,8 +24,7 @@ class Session {
   capacity: number;
 
   @ManyToOne(() => Movie, movie => movie.sessions)
-  @JoinColumn({ name: 'movieId' })
-  movie: Movie;
+  movie: Movie | undefined;
 
   @OneToMany(() => Ticket, ticket => ticket.session)
   tickets: Ticket[];

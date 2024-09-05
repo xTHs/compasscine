@@ -10,8 +10,6 @@ export class CreateSession1725385716443 implements MigrationInterface {
             name: 'id',
             type: 'INTEGER',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
           },
           {
             name: 'room',
@@ -19,7 +17,7 @@ export class CreateSession1725385716443 implements MigrationInterface {
           },
           {
             name: 'capacity',
-            type: 'int',
+            type: 'INTEGER',
           },
           {
             name: 'day',
@@ -28,7 +26,11 @@ export class CreateSession1725385716443 implements MigrationInterface {
           },
           {
             name: 'time',
-            type: 'datetime',
+            type: 'datatime',
+          },
+          {
+            name: 'movie_id',
+            type: 'INTEGER',
           },
           {
             name: 'created_at',
@@ -46,6 +48,6 @@ export class CreateSession1725385716443 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('sessions');
+    await queryRunner.dropTable('sessao');
   }
 }

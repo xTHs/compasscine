@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import Session from 'src/api/modules/sessions/typeorm/entities/Session';
+import { Exclude } from 'class-transformer';
 
 @Entity('movies')
 class Movie {
@@ -32,9 +33,11 @@ class Movie {
   sessions: Session[];
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 

@@ -12,9 +12,11 @@ class ShowMovieService {
   public async execute({ movie_id }: IRequest): Promise<Movie> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movie = await moviesRepository.findOne(movie_id, {
-      relations: ['sessions'],
-    });
+    //const movie = await moviesRepository.findOne(movie_id, {
+    //  relations: ['sessions'],
+    // });
+
+    const movie = await moviesRepository.findOne(movie_id);
 
     if (!movie) {
       throw new AppError('Movie not found', 'Bad request', 404);

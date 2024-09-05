@@ -28,7 +28,7 @@ class Movie {
   @Column()
   release_date: Date;
 
-  @OneToMany(() => Session, session => session.movie)
+  @OneToMany(() => Session, sessions => sessions.movie)
   sessions: Session[];
 
   @CreateDateColumn()

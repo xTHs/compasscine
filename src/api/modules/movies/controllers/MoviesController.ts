@@ -18,7 +18,7 @@ export default class MoviesController {
       release_date,
     });
 
-    return response.json(instanceToInstance(movie));
+    return response.status(200).json(instanceToInstance(movie));
   }
 
   public async list(request: Request, response: Response): Promise<Response> {
@@ -26,16 +26,15 @@ export default class MoviesController {
 
     const movies = await listMovies.execute();
 
-    return response.json(instanceToInstance(movies));
+    return response.status(200).json(instanceToInstance(movies));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
+    const { id: movie_id } = request.params;
     const showMovie = new ShowMovieService();
-    const { movie_id } = request.params;
+    const movie = await showMovie.execute({ movie_id: Number(movie_id) });
 
-    const movie = await showMovie.execute({ movie_id });
-
-    return response.json(instanceToInstance(movie));
+    return response.status(200).json(instanceToInstance(movie));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -58,6 +57,7 @@ export default class MoviesController {
 
     return response.json(movie);
   }
+
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteMovie = new DeleteMovieService();

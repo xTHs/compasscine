@@ -6,7 +6,7 @@ import ticketsRouter from '../../../modules/tickets/routes/tickets.routes';
 const routes = Router();
 
 routes.use('/', moviesRouter);
-routes.use('/sessions', sessionsRouter);
-routes.use('/tickets', ticketsRouter);
+routes.use('/', sessionsRouter);
+routes.use('/', ticketsRouter);
 
 export default routes;

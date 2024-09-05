@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import SessionController from '../controllers/SessionController';
 
 const sessionsRouter = Router();
+const sessionController = new SessionController();
 
-// Exemplos - pode apagar e fazer corretamente
-//sessionsRouter.get(...)
+sessionsRouter.post('/:movie_id/session', sessionController.create);
 //sessionsRouter.put(...)
 
 export default sessionsRouter;

@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -23,6 +24,10 @@ class Session {
   capacity: number;
 
   @ManyToOne(() => Movie, movie => movie.sessions)
+<<<<<<< HEAD
+=======
+  @JoinColumn({ name: 'movieId' })
+>>>>>>> yan
   movie: Movie;
 
   @OneToMany(() => Ticket, ticket => ticket.session)

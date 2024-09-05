@@ -25,14 +25,19 @@ class CreateSessionService {
     const sessionRepository = getCustomRepository(SessionRepository);
 
     // verifica se ja existe sala com esse nome
-    const roomExisted = await sessionRepository.findByRoom(room);
 
     const moviesRepository = getCustomRepository(MoviesRepository);
     const movie = await moviesRepository.findById(moveiId);
 
+    if (!movie) {
+      throw new AppError('The movie is null', 'bad request', 400);
+    }
+
+    const roomExisted = await sessionRepository.findByRoom(room);
     if (roomExisted) {
       throw new AppError('The room has already registered', 'bad request', 400);
     }
+    console.log(movie);
 
     const session = sessionRepository.create({
       room,
@@ -40,6 +45,7 @@ class CreateSessionService {
       day,
       time,
     });
+
     session.movie = movie;
 
     await sessionRepository.save(session);

@@ -7,9 +7,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
+import { format } from 'date-fns';
 
-@Entity('sessao')
-class Sessao {
+@Entity('session')
+class Session {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,7 +21,7 @@ class Sessao {
   @Column('int')
   capacity: number;
 
-  @ManyToOne(() => Movie, movie => movie)
+  @ManyToOne(() => Movie, movie => movie.sessions)
   movie: Movie;
 
   @Column()
@@ -33,6 +35,11 @@ class Sessao {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'formatted_release_date' })
+  getFormattedReleaseDate(): string {
+    return format(this.day, 'dd-MM-yyyy');
+  }
 }
 
-export default Sessao;
+export default Session;

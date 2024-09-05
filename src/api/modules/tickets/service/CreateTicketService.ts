@@ -45,8 +45,8 @@ class CreateTicketService {
     const ticket = ticketsRepository.create({
       chair,
       value,
-      session_id,
-      movie_id,
+      session: { id: session_id },
+      movie: { id: movie_id },
     });
 
     await ticketsRepository.save(ticket);

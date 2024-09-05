@@ -4,7 +4,7 @@ export class CreateSession1725385716443 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'session',
+        name: 'sessions',
         columns: [
           {
             name: 'id',
@@ -27,6 +27,10 @@ export class CreateSession1725385716443 implements MigrationInterface {
           {
             name: 'time',
             type: 'datatime',
+          },
+          {
+            name: 'movie_id',
+            type: 'INTEGER',
           },
           {
             name: 'created_at',

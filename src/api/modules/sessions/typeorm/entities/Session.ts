@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -11,7 +12,7 @@ import {
 import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
 import Ticket from 'src/api/modules/tickets/typeorm/entities/Ticket';
 
-@Entity('session')
+@Entity('sessions')
 class Session {
   @PrimaryGeneratedColumn()
   id: number;
@@ -23,6 +24,7 @@ class Session {
   capacity: number;
 
   @ManyToOne(() => Movie, movie => movie.sessions)
+  @JoinColumn({ name: 'movieId' })
   movie: Movie;
 
   @OneToMany(() => Ticket, ticket => ticket.session)

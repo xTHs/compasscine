@@ -14,9 +14,8 @@ class MoviesRepository extends Repository<Movie> {
 
   public async findById(id: number): Promise<Movie | undefined> {
     const movie = await this.findOne({
-      where: {
-        id,
-      },
+      where: { id },
+      relations: ['sessions'],
     });
     return movie;
   }

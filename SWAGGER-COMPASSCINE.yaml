@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  title: CompassCine
+  description: The API rest for a cinema box office
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/SMTTHIAGO99/CompassCine/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /movies:
+    get:
+      tags:
+      - Movies
+      description: Returns the list of movies
+      parameters:
+      - name: title
+        in: query
+        description: List of films
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: All Movies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFilm'
+    post:
+      tags:
+      - Movies
+      description: Create a movie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFilm'
+      responses:
+        "200":
+          description: successfully registered device
+  /movies/{id}:
+    get:
+      tags:
+      - Movies
+      description: Search movie returns information about a movie specific.
+      parameters:
+      - name: id
+        in: path
+        description: ID of the movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Specific Movie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFilm'
+    put:
+      tags:
+      - Movies
+      description: Update movie
+      parameters:
+      - name: id
+        in: path
+        description: ID of the movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFilm'
+      responses:
+        "200":
+          description: Movie updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFilm'
+    delete:
+      tags:
+      - Movies
+      description: Delete a specific movie
+      parameters:
+      - name: id
+        in: path
+        description: ID of the movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Movie deleted successfully
+  /movies/{movie_id}/sessions:
+    post:
+      tags:
+      - Sessions
+      description: Create a new session for a movie
+      parameters:
+      - name: movie_id
+        in: path
+        description: ID of the movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Session data to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSession'
+        required: true
+      responses:
+        "201":
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSession'
+  /movies/{movie_id}/sessions/{id}:
+    put:
+      tags:
+      - Sessions
+      description: Update an existing session
+      parameters:
+      - name: movie_id
+        in: path
+        description: ID of the movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: ID of the session
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated session data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSession'
+        required: true
+      responses:
+        "200":
+          description: Session updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSession'
+        "404":
+          description: Session not found
+    delete:
+      tags:
+      - Sessions
+      description: Delete an existing session
+      parameters:
+      - name: movie_id
+        in: path
+        description: ID of the movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: ID of the session
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Session deleted successfully
+        "404":
+          description: Session not found
+  /movies/{movie_id}/sessions/{session_id}/tickets:
+    post:
+      tags:
+      - Tickets
+      description: Register a ticket
+      parameters:
+      - name: movie_id
+        in: path
+        description: Movie ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: session_id
+        in: path
+        description: Session ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Ticket details to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTicket'
+        required: true
+      responses:
+        "201":
+          description: Ticket created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTicket'
+        "400":
+          description: Invalid entry
+  /movies/{movie_id}/sessions/{session_id}/tickets/{id}:
+    put:
+      tags:
+      - Tickets
+      description: Update a ticket
+      parameters:
+      - name: movie_id
+        in: path
+        description: ID Movie
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: session_id
+        in: path
+        description: ID Session
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: id
+        in: path
+        description: ID of the ticket to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Updated ticket details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTicket'
+        required: true
+      responses:
+        "200":
+          description: Ticket updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTicket'
+        "404":
+          description: Ticket not found
+    delete:
+      tags:
+      - Tickets
+      description: Delete
+      parameters:
+      - name: movie_id
+        in: path
+        description: movie ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: session_id
+        in: path
+        description: Session ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: id
+        in: path
+        description: Ticket ID to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Ticket deleted successfully
+        "404":
+          description: Ticket not found
+components:
+  schemas:
+    CreateFilm:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        actors:
+          type: array
+          items:
+            type: string
+        genre:
+          type: string
+        release_date:
+          type: string
+          format: date
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateSession'
+    CreateSession:
+      type: object
+      properties:
+        room:
+          type: string
+        capacity:
+          type: integer
+        day:
+          type: string
+          format: 03/06/2024
+        time:
+          type: string
+          example: 14:23:00
+        date:
+          type: string
+          format: date
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateTicket'
+    CreateTicket:
+      type: object
+      properties:
+        chair:
+          type: string
+        value:
+          type: number

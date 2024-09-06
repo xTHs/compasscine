@@ -15,10 +15,7 @@ class Ticket {
   id: number;
 
   @ManyToOne(() => Session, session => session.tickets)
-  session: Session;
-
-  @ManyToOne(() => Movie, movie => movie.sessions)
-  movie: Movie;
+  session: Session | undefined;
 
   @Column()
   chair: string;

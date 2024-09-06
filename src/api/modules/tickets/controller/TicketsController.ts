@@ -2,32 +2,29 @@ import { Request, Response } from 'express';
 import CreateTicketService from '../service/CreateTicketService';
 import UpdateTicketService from '../service/UpdateTicketService';
 import DeleteTicketService from '../service/DeleteTicketService';
+import TicketsRepository from '../typeorm/repositories/TicketsRepository';
+import TicketDTO from '../dto/TickectDTO';
 
 export default class TicketsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { chair, value } = request.body;
-    const { session_id, movie_id } = request.params;
+    const movie_id = request.params.movie_id;
+    const session_id = request.params.session_id;
 
-    const sessionId = Number(session_id);
-    const movieId = Number(movie_id);
+    const { chair, value } = request.body;
 
     const createTicket = new CreateTicketService();
 
-    const ticket = await createTicket.execute({
-      movie_id: movieId,
-      session_id: sessionId,
-      value,
-      chair,
-    });
+    const ticket = await createTicket.execute(
+      {
+        value,
+        chair,
+      },
+      { movie_id: Number(movie_id) },
+      { session_id: Number(session_id) },
+    );
 
-    const ticketReturn = {
-      id: ticket.id,
-      session_id: ticket.session,
-      chair: ticket.chair,
-      value: ticket.value,
-    };
-
-    return response.json(ticketReturn);
+    const ticketDTO = new TicketDTO(ticket);
+    return response.json(ticketDTO);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

@@ -11,9 +11,10 @@ interface IReqParam {
 }
 
 class DeleteSessionService {
-  
+
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async execute({ id }: IRequest, { movie_id }: IReqParam) {
+
     const sessionRepository = getCustomRepository(SessionRepository);
     const session = await sessionRepository.findById(id);
 

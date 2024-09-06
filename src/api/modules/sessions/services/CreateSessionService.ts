@@ -37,7 +37,6 @@ class CreateSessionService {
     if (roomExisted) {
       throw new AppError('The room has already registered', 'bad request', 400);
     }
-    console.log(movie);
 
     const session = sessionRepository.create({
       room,

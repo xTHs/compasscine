@@ -11,6 +11,7 @@ import {
 
 import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
 import Ticket from 'src/api/modules/tickets/typeorm/entities/Ticket';
+import { Exclude } from 'class-transformer';
 
 @Entity('sessions')
 class Session {
@@ -26,7 +27,7 @@ class Session {
   @ManyToOne(() => Movie, movie => movie.sessions)
   movie: Movie | undefined;
 
-  @OneToMany(() => Ticket, ticket => ticket.session)
+  @OneToMany(() => Ticket, ticket => ticket.session_id)
   tickets: Ticket[];
 
   @Column()
@@ -36,9 +37,11 @@ class Session {
   time: Date;
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 

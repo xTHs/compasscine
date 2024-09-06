@@ -2,7 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToMany,
   ManyToOne,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,11 +18,11 @@ class Ticket {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => Session, session => session.tickets)
-  session: Session;
+  @OneToOne(() => Session, session => session.tickets)
+  session_id: Session | undefined;
 
   @ManyToOne(() => Movie, movie => movie.sessions)
-  movie: Movie;
+  movie_id: Movie;
 
   @Column()
   chair: string;

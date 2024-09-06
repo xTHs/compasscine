@@ -1,23 +1,37 @@
 import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import Ticket from '../typeorm/entities/Ticket';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
+import MoviesRepository from '../../movies/typeorm/repositories/MoviesRepository';
+import SessionRepository from '../../sessions/typeorm/repositories/SessionRepository';
 
 interface IRequest {
-  session_id: number;
   chair: string;
   value: number;
+}
+interface sessionID {
+  session_id: number;
+}
+interface moviedID {
   movie_id: number;
 }
 
 class CreateTicketService {
-  public async execute({
-    session_id,
-    chair,
-    value,
-    movie_id,
-  }: IRequest): Promise<Ticket> {
+  public async execute(
+    { chair, value }: IRequest,
+    { movie_id }: moviedID,
+    { session_id }: sessionID,
+  ) {
     const ticketsRepository = getCustomRepository(TicketsRepository);
+
+    const moviesRepository = getCustomRepository(MoviesRepository);
+    const movie = await moviesRepository.findById(movie_id);
+
+    if (!movie) {
+      throw new AppError('The movie is null', 'bad request', 400);
+    }
+
+    const sessionRepository = getCustomRepository(SessionRepository);
+    const session = await sessionRepository.findById(session_id);
 
     const ticketExists = await ticketsRepository.findTicket(
       movie_id,
@@ -45,10 +59,9 @@ class CreateTicketService {
     const ticket = ticketsRepository.create({
       chair,
       value,
-      session: { id: session_id },
-      movie: { id: movie_id },
     });
-
+    ticket.movie_id = movie;
+    ticket.session_id = session;
     await ticketsRepository.save(ticket);
 
     return ticket;

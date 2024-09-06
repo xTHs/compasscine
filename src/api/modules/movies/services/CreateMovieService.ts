@@ -29,6 +29,13 @@ class CreateMovieService {
         400,
       );
     }
+    if (description.length > 100) {
+      throw new AppError(
+        'Description cannot exceed more than 100 characters',
+        'Bad Request',
+        400,
+      );
+    }
 
     const movie = moviesRepository.create({
       name,

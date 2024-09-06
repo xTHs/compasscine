@@ -5,6 +5,7 @@ const sessionsRouter = Router();
 const sessionController = new SessionController();
 
 sessionsRouter.post('/:movie_id/session', sessionController.create);
-//sessionsRouter.put(...)
+sessionsRouter.delete('/:movie_id/sessions/:id', sessionController.delete);
+sessionsRouter.put('/:movie_id/sessions/:id', sessionController.update);
 
 export default sessionsRouter;

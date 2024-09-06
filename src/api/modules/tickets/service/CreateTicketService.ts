@@ -1,55 +1,44 @@
 import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import Ticket from '../typeorm/entities/Ticket';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
+import MoviesRepository from '../../movies/typeorm/repositories/MoviesRepository';
+import SessionRepository from '../../sessions/typeorm/repositories/SessionRepository';
 
 interface IRequest {
-  session_id: number;
   chair: string;
   value: number;
+}
+interface sessionID {
+  session_id: number;
+}
+interface moviedID {
   movie_id: number;
 }
 
 class CreateTicketService {
-  public async execute({
-    session_id,
-    chair,
-    value,
-    movie_id,
-  }: IRequest): Promise<Ticket> {
-    const ticketsRepository = getCustomRepository(TicketsRepository);
+  public async execute(
+    { chair, value }: IRequest,
+    { movie_id }: moviedID,
+    { session_id }: sessionID,
+  ) {
+    const ticktRepository = getCustomRepository(TicketsRepository);
+    const sessionID = session_id;
+    const sessionRepository = getCustomRepository(SessionRepository);
 
-    const ticketExists = await ticketsRepository.findTicket(
-      movie_id,
-      session_id,
-      value,
-      chair,
-    );
+    const sessionExist = await sessionRepository.findById(sessionID);
 
-    if (ticketExists) {
-      throw new AppError(`This ticket already exists`, 'Bad Request');
+    if (sessionExist?.movie?.id !== movie_id) {
+      console.log(sessionExist);
+      throw new AppError('Movie is not session', 'Bad request', 400);
     }
 
-    const chairExists = await ticketsRepository.findByChairAndSession(
-      session_id,
-      chair,
-    );
-
-    if (chairExists) {
-      throw new AppError(
-        `O assento ${chair} já foi reservado para esta sessão.`,
-        'Bad Request',
-      );
-    }
-
-    const ticket = ticketsRepository.create({
+    const ticket = ticktRepository.create({
       chair,
       value,
-      session: { id: session_id },
-      movie: { id: movie_id },
     });
 
-    await ticketsRepository.save(ticket);
+    ticket.session = sessionExist;
+    await ticktRepository.save(ticket);
 
     return ticket;
   }

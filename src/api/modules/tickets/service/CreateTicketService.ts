@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
 import MoviesRepository from '../../movies/typeorm/repositories/MoviesRepository';
 import SessionRepository from '../../sessions/typeorm/repositories/SessionRepository';
+import Ticket from '../typeorm/entities/Ticket';
 
 interface IRequest {
   chair: string;
@@ -20,7 +21,7 @@ class CreateTicketService {
     { chair, value }: IRequest,
     { movie_id }: moviedID,
     { session_id }: sessionID,
-  ) {
+  ): Promise<Ticket> {
     const ticketsRepository = getCustomRepository(TicketsRepository);
 
     const moviesRepository = getCustomRepository(MoviesRepository);

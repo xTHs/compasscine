@@ -2,6 +2,7 @@ import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Ticket from '../typeorm/entities/Ticket';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   chair: string;
@@ -47,7 +48,7 @@ class UpdateTicketService {
 
     await ticketsRepository.save(ticket);
 
-    return ticket;
+    return instanceToInstance(ticket);
   }
 }
 

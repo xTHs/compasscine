@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
 import SessionRepository from '../../sessions/typeorm/repositories/SessionRepository';
 import Ticket from '../typeorm/entities/Ticket';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   chair: string;
@@ -51,7 +52,7 @@ class CreateTicketService {
     ticket.session = sessionExist;
     await ticketRepository.save(ticket);
 
-    return ticket;
+    return instanceToInstance(ticket);
   }
 
   public async toCheckCapacity({ session_id }: sessionID) {

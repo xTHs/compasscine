@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 import Session from '../typeorm/entities/Session';
 import SessionRepository from '../typeorm/repositories/SessionRepository';
 import MoviesRepository from '../../movies/typeorm/repositories/MoviesRepository';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   room: string;
@@ -43,7 +44,7 @@ class UpdateSessionService {
     session.time = time;
 
     await sessionRepository.save(session);
-    return session;
+    return instanceToInstance(session);
   }
 
   public async checkMoviesAndSession({ movie_id, id }: IReqParam) {

@@ -21,7 +21,8 @@ class CreateTicketService {
     { movie_id }: moviedID,
     { session_id }: sessionID,
   ) {
-    const ticktRepository = getCustomRepository(TicketsRepository);
+    const ticketRepository = getCustomRepository(TicketsRepository);
+
     const sessionID = session_id;
     const sessionRepository = getCustomRepository(SessionRepository);
 
@@ -32,15 +33,41 @@ class CreateTicketService {
       throw new AppError('Movie is not session', 'Bad request', 400);
     }
 
-    const ticket = ticktRepository.create({
+    const chairr = await ticketRepository.findByChair(chair);
+    if (chairr) {
+      console.log(chairr);
+      throw new AppError(
+        `This chair is already occupied ${chairr}`,
+        'Bad request',
+        400,
+      );
+    }
+
+    const ticket = ticketRepository.create({
       chair,
       value,
     });
 
+    // verifica se tem vagas disponiveis , caso não esse metodo retorna uma exeção
+    await this.toCheckCapacity({ session_id });
+
     ticket.session = sessionExist;
-    await ticktRepository.save(ticket);
+    await ticketRepository.save(ticket);
 
     return ticket;
+  }
+
+  public async toCheckCapacity({ session_id }: sessionID) {
+    const sessionRepository = getCustomRepository(SessionRepository);
+
+    const session = await sessionRepository.findById(session_id);
+
+    if (session && Number(session.capacity) !== 0) {
+      session.capacity = session.capacity - 1;
+      sessionRepository.save(session);
+    } else {
+      throw new AppError('number of chairs unavailable', ' Bad request', 400);
+    }
   }
 }
 

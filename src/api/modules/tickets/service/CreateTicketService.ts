@@ -1,8 +1,8 @@
 import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
-import MoviesRepository from '../../movies/typeorm/repositories/MoviesRepository';
 import SessionRepository from '../../sessions/typeorm/repositories/SessionRepository';
+import Ticket from '../typeorm/entities/Ticket';
 
 interface IRequest {
   chair: string;
@@ -20,7 +20,7 @@ class CreateTicketService {
     { chair, value }: IRequest,
     { movie_id }: moviedID,
     { session_id }: sessionID,
-  ) {
+  ): Promise<Ticket> {
     const ticketRepository = getCustomRepository(TicketsRepository);
 
     const sessionID = session_id;
@@ -29,13 +29,11 @@ class CreateTicketService {
     const sessionExist = await sessionRepository.findById(sessionID);
 
     if (sessionExist?.movie?.id !== movie_id) {
-      console.log(sessionExist);
       throw new AppError('Movie is not session', 'Bad request', 400);
     }
 
     const chairr = await ticketRepository.findByChair(chair);
     if (chairr) {
-      console.log(chairr);
       throw new AppError(
         `This chair is already occupied ${chairr}`,
         'Bad request',
@@ -48,7 +46,6 @@ class CreateTicketService {
       value,
     });
 
-    // verifica se tem vagas disponiveis , caso não esse metodo retorna uma exeção
     await this.toCheckCapacity({ session_id });
 
     ticket.session = sessionExist;

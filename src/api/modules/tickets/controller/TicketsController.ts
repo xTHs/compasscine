@@ -72,6 +72,6 @@ export default class TicketsController {
       session_id: sessionId,
       movie_id: movieId,
     });
-    return response.status(204).send('Ticket deleted')
+    return response.status(204).send('Ticket deleted');
   }
 }

@@ -7,31 +7,23 @@ interface IRequest {
   chair: string;
   value: number;
 }
-interface sessionID {
-  session_id: number;
-}
-interface moviedID {
-  movie_id: number;
-}
-interface idID {
+interface IReqParam {
   id: number;
+  session_id: number;
+  movie_id: number;
 }
 
 class UpdateTicketService {
   public async execute(
     { chair, value }: IRequest,
-    { movie_id }: moviedID,
-    { session_id }: sessionID,
-    { id }: idID,
+    { id, session_id, movie_id }: IReqParam,
   ): Promise<Ticket> {
     const ticketsRepository = getCustomRepository(TicketsRepository);
 
-    const ticket = await ticketsRepository.findTicketforUpdate(
+    const ticket = await ticketsRepository.findTicketforUpdateAndDelete(
       id,
       movie_id,
       session_id,
-      value,
-      chair,
     );
 
     if (!ticket) {

@@ -40,22 +40,21 @@ export default class MoviesController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { image, name, description, actors, genre, release_date, sessions } =
-      request.body;
-    const { id } = request.params;
+    const id = parseInt(request.params.id);
+    const { name, description, actors, genre, release_date } = request.body;
 
     const updateMovie = new UpdateMovieService();
 
-    const movie = await updateMovie.execute({
-      id,
-      image,
-      name,
-      description,
-      actors,
-      genre,
-      release_date,
-      sessions,
-    });
+    const movie = await updateMovie.execute(
+      {
+        name,
+        description,
+        actors,
+        genre,
+        release_date,
+      },
+      { id },
+    );
 
     return response.json(movie);
   }

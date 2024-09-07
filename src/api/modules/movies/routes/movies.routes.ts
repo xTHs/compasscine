@@ -35,13 +35,14 @@ moviesRouter.put(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().required(),
+      id: Joi.number().required(),
     },
     [Segments.BODY]: {
       name: Joi.string().required(),
       description: Joi.string().required(),
       actors: Joi.array().items(Joi.string()).required(),
-      gender: Joi.string().required(),
+      genre: Joi.string().required(),
+      release_date: Joi.date().required(),
     },
   }),
   moviesController.update,

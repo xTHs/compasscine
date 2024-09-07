@@ -4,27 +4,21 @@ import Movie from '../typeorm/entities/Movie';
 import MoviesRepository from '../typeorm/repositories/MoviesRepository';
 
 interface IRequest {
-  id: string;
-  image: string;
   name: string;
   description: string;
-  actors: string;
+  actors: string[];
   genre: string;
-  release_date: string;
-  sessions: string;
+  release_date: Date;
+}
+interface IReqParam {
+  id: number;
 }
 
 class UpdateMovieService {
-  public async execute({
-    id,
-    image,
-    name,
-    description,
-    actors,
-    genre,
-    release_date,
-    sessions,
-  }: IRequest): Promise<Movie> {
+  public async execute(
+    { name, description, actors, genre, release_date }: IRequest,
+    { id }: IReqParam,
+  ): Promise<Movie> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
     const movie = await moviesRepository.findById(id);
@@ -40,14 +34,11 @@ class UpdateMovieService {
         400,
       );
     }
-
-    movie.image = image;
     movie.name = name;
     movie.description = description;
     movie.actors = actors;
     movie.genre = genre;
     movie.release_date = release_date;
-    movie.sessions = sessions;
 
     await moviesRepository.save(movie);
 

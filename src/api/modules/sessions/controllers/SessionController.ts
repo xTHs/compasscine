@@ -8,7 +8,7 @@ export default class SessionController {
     const { room, capacity, day, time } = request.body;
 
     const movie_id = request.params.movie_id;
-
+    console.log(movie_id);
     const createSession = new CreateSessionService();
 
     const session = await createSession.execute(
@@ -26,7 +26,6 @@ export default class SessionController {
     const deleteSession = new DeleteSessionService();
 
     await deleteSession.execute({ id }, { movie_id });
-
     return response.status(204).json('Session deleted');
   }
 

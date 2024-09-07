@@ -3,6 +3,7 @@ import CreateTicketService from '../service/CreateTicketService';
 import UpdateTicketService from '../service/UpdateTicketService';
 import DeleteTicketService from '../service/DeleteTicketService';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
+import TicketDTO from '../dto/TickectDTO';
 
 export default class TicketsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -22,13 +23,8 @@ export default class TicketsController {
       { session_id: Number(session_id) },
     );
 
-    const ticketReturn = {
-      id: ticket.id,
-      session_id: ticket.session_id,
-      chair: ticket.chair,
-      value: ticket.value,
-    };
-    return response.json(ticketReturn);
+    const ticketDTO = new TicketDTO(ticket);
+    return response.json(ticketDTO);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -51,7 +47,7 @@ export default class TicketsController {
 
     const ticketReturn = {
       id: ticket.id,
-      session_id: ticket.session_id,
+      session_id: ticket.session,
       chair: ticket.chair,
       value: ticket.value,
     };
@@ -59,7 +55,7 @@ export default class TicketsController {
     return response.json(ticketReturn);
   }
 
-  public async delete(request: Request): Promise<void> {
+  public async delete(request: Request, response: Response): Promise<void> {
     const { chair, value } = request.body;
     const { session_id, movie_id, id } = request.params;
 
@@ -76,5 +72,6 @@ export default class TicketsController {
       session_id: sessionId,
       movie_id: movieId,
     });
+    return response.status(204).send('Ticket deleted')
   }
 }

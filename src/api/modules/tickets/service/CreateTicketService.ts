@@ -21,50 +21,53 @@ class CreateTicketService {
     { movie_id }: moviedID,
     { session_id }: sessionID,
   ) {
-    const ticketsRepository = getCustomRepository(TicketsRepository);
+    const ticketRepository = getCustomRepository(TicketsRepository);
 
-    const moviesRepository = getCustomRepository(MoviesRepository);
-    const movie = await moviesRepository.findById(movie_id);
-
-    if (!movie) {
-      throw new AppError('The movie is null', 'bad request', 400);
-    }
-
+    const sessionID = session_id;
     const sessionRepository = getCustomRepository(SessionRepository);
-    const session = await sessionRepository.findById(session_id);
 
-    const ticketExists = await ticketsRepository.findTicket(
-      movie_id,
-      session_id,
-      value,
-      chair,
-    );
+    const sessionExist = await sessionRepository.findById(sessionID);
 
-    if (ticketExists) {
-      throw new AppError(`This ticket already exists`, 'Bad Request');
+    if (sessionExist?.movie?.id !== movie_id) {
+      console.log(sessionExist);
+      throw new AppError('Movie is not session', 'Bad request', 400);
     }
 
-    const chairExists = await ticketsRepository.findByChairAndSession(
-      session_id,
-      chair,
-    );
-
-    if (chairExists) {
+    const chairr = await ticketRepository.findByChair(chair);
+    if (chairr) {
+      console.log(chairr);
       throw new AppError(
-        `O assento ${chair} já foi reservado para esta sessão.`,
-        'Bad Request',
+        `This chair is already occupied ${chairr}`,
+        'Bad request',
+        400,
       );
     }
 
-    const ticket = ticketsRepository.create({
+    const ticket = ticketRepository.create({
       chair,
       value,
     });
-    ticket.movie_id = movie;
-    ticket.session_id = session;
-    await ticketsRepository.save(ticket);
+
+    // verifica se tem vagas disponiveis , caso não esse metodo retorna uma exeção
+    await this.toCheckCapacity({ session_id });
+
+    ticket.session = sessionExist;
+    await ticketRepository.save(ticket);
 
     return ticket;
+  }
+
+  public async toCheckCapacity({ session_id }: sessionID) {
+    const sessionRepository = getCustomRepository(SessionRepository);
+
+    const session = await sessionRepository.findById(session_id);
+
+    if (session && Number(session.capacity) !== 0) {
+      session.capacity = session.capacity - 1;
+      sessionRepository.save(session);
+    } else {
+      throw new AppError('number of chairs unavailable', ' Bad request', 400);
+    }
   }
 }
 

@@ -24,10 +24,12 @@ class Session {
   @Column('int')
   capacity: number;
 
-  @ManyToOne(() => Movie, movie => movie.sessions)
+  @ManyToOne(() => Movie, movie => movie.sessions, {
+    eager: true,
+  })
   movie: Movie | undefined;
 
-  @OneToMany(() => Ticket, ticket => ticket.session_id)
+  @OneToMany(() => Ticket, ticket => ticket.session)
   tickets: Ticket[];
 
   @Column()

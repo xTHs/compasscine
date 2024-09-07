@@ -32,7 +32,7 @@ moviesRouter.post(
 );
 
 moviesRouter.put(
-  '/movies/:id',
+  '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().required(),
@@ -48,10 +48,10 @@ moviesRouter.put(
 );
 
 moviesRouter.delete(
-  '/movies/:id',
+  '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
+      id: Joi.number().required(),
     },
   }),
   moviesController.delete,

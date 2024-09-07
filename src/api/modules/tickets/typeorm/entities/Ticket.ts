@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import Movie from 'src/api/modules/movies/typeorm/entities/Movie';
 import Session from 'src/api/modules/sessions/typeorm/entities/Session';
+import { Exclude } from 'class-transformer';
 
 @Entity('tickets')
 class Ticket {
@@ -24,9 +25,11 @@ class Ticket {
   value: number;
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 

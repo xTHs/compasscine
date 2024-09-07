@@ -19,13 +19,6 @@ class MoviesRepository extends Repository<Movie> {
     });
     return movie;
   }
-
-  public async findByIdUpdate(id: number): Promise<Movie | undefined> {
-    const movie = await this.findOne({
-      where: { id },
-    });
-    return movie;
-  }
 }
 
 export default MoviesRepository;

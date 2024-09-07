@@ -1,6 +1,79 @@
+# About
+
+Welcome!  
+This is a REST API developed for a cinema ticketing system.  
+The quick guide below will help you set up and run the project in just a few steps. Let's get started!
+
+## Features
+- Registration of Movies / Sessions / Tickets
+- Updating and removing records
+- Listing movies / sessions / tickets
+- Deleting movies / sessions / tickets
+
+## Prerequisites
+- Node.js (version 16 or higher)
+- NPM (version 9 or higher)
+- SQLite database (version 3.46)
+
+## Installation
+
+Clone the repository:  
+'https://github.com/xTHs/compasscine.git'
+
+## Step 1: Install Dependencies
+
+First, you need to install all project dependencies.
+
+Open the terminal at the project's root.
+
+Run the command:
+
+       npm install
+
+## Step 2: Run the Database Migrations
+
+Now that the dependencies are installed, you need to prepare the database by running the migrations.
+
+In the terminal, run the following command:
+
+       npm run typeorm migration:run
+
+## Step 3: Start the Server
+
+Now that the database is configured, you can run the development server.
+
+In the terminal, type:
+
+       npm run dev
+
+## Step 4: Access the Database (SQLite)
+
+To view and manipulate the data directly in the database, you can use SQLite.
+
+       Open SQLite
+       Go to the "Open Database" option
+       Navigate to the root of the project
+       Change the extension selector to "All Files(*)"
+       Select the "Compasscine" file
+
+** Use the Swagger documentation to check all project details. **
+
+       http://localhost:3333/api-docs/
+
+Now you're ready to explore the CompassCine project.
+
+
+
+
+
+# PORTUGUÊS #
+
+
 # Sobre
 
-Bem-vindo! Este guia rápido irá ajudá-lo a configurar e rodar o projeto em poucos passos. Vamos lá!
+Bem-vindo! 
+Essa é uma API REST desenvolvida para a bilheteria de um cinema. 
+O guia rápido abaixo irá ajudá-lo a configurar e rodar o projeto em poucos passos. Vamos lá!
 
 ##  Funcionalidades
 - Cadastro de Filmes / sessões / tickets

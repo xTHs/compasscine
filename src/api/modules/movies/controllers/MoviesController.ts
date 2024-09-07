@@ -3,6 +3,8 @@ import ListMoviesService from '../services/ListMoviesService';
 import CreateMovieService from '../services/CreateMovieService';
 import { instanceToInstance } from 'class-transformer';
 import ShowMovieService from '../services/ShowMovieService';
+import UpdateMovieService from '../services/UpdateMovieService';
+import DeleteMovieService from '../services/DeleteMovieService';
 
 export default class MoviesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -62,8 +64,6 @@ export default class MoviesController {
     const { id } = request.params;
     const deleteMovie = new DeleteMovieService();
     await deleteMovie.execute({ id });
-
-    //confirmar resposta com o time
-    return response.status(204).send();
+    return response.status(204).send('Movie deleted');
   }
 }

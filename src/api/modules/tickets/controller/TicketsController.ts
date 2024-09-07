@@ -55,7 +55,7 @@ export default class TicketsController {
     return response.json(ticketReturn);
   }
 
-  public async delete(request: Request): Promise<void> {
+  public async delete(request: Request, response: Response): Promise<void> {
     const { chair, value } = request.body;
     const { session_id, movie_id, id } = request.params;
 
@@ -72,5 +72,6 @@ export default class TicketsController {
       session_id: sessionId,
       movie_id: movieId,
     });
+    return response.status(204).send('Ticket deleted')
   }
 }

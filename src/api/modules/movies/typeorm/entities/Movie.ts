@@ -29,7 +29,7 @@ class Movie {
   @Column()
   release_date: Date;
 
-  @OneToMany(() => Session, sessions => sessions.movie)
+  @OneToMany(() => Session, (sessions: Session) => sessions.movie,{cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
   sessions: Session[];
 
   @CreateDateColumn()

@@ -1,5 +1,5 @@
-import AppError from '@shared/errors/AppError';
-import { getMovieRepository } from 'typeorm';
+import AppError from 'src/api/shared/errors/AppError';
+import { getCustomRepository } from 'typeorm';
 import MoviesRepository from '../typeorm/repositories/MoviesRepository';
 
 interface IRequest {
@@ -8,7 +8,7 @@ interface IRequest {
 
 class DeleteMovieService {
   public async execute({ id }: IRequest): Promise<void> {
-    const moviesRepository = getMovieRepository(MoviesRepository);
+    const moviesRepository = getCustomRepository(MoviesRepository);
 
     const movie = await moviesRepository.findById(id);
 

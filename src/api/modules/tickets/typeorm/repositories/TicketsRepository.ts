@@ -38,14 +38,12 @@ class TicketsRepository extends Repository<Ticket> {
   }
 
   public async findTicket(
-    movie_id: number,
     session_id: number,
     value: number,
     chair: string,
   ): Promise<Ticket | undefined> {
     const ticket = await this.findOne({
       where: {
-        movie_id,
         session_id,
         value,
         chair,

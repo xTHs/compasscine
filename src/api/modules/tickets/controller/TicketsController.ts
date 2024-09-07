@@ -11,7 +11,6 @@ export default class TicketsController {
     const session_id = request.params.session_id;
 
     const { chair, value } = request.body;
-
     const createTicket = new CreateTicketService();
 
     const ticket = await createTicket.execute(
@@ -23,36 +22,27 @@ export default class TicketsController {
       { session_id: Number(session_id) },
     );
 
-    const ticketDTO = new TicketDTO(ticket);
-    return response.json(ticketDTO);
+    return response.json(ticket);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { chair, value } = request.body;
-    const { session_id, movie_id, id } = request.params;
+    const id = parseInt(request.params.id);
+    const movie_id = parseInt(request.params.movie_id);
+    const session_id = parseInt(request.params.session_id);
 
-    const ticketId = Number(id);
-    const sessionId = Number(session_id);
-    const movieId = Number(movie_id);
+    const { chair, value } = request.body;
 
     const updateTicket = new UpdateTicketService();
 
-    const ticket = await updateTicket.execute({
-      id: ticketId,
-      chair,
-      value,
-      session_id: sessionId,
-      movie_id: movieId,
-    });
+    const ticket = await updateTicket.execute(
+      {
+        chair,
+        value,
+      },
+      { id, session_id, movie_id },
+    );
 
-    const ticketReturn = {
-      id: ticket.id,
-      session_id: ticket.session,
-      chair: ticket.chair,
-      value: ticket.value,
-    };
-
-    return response.json(ticketReturn);
+    return response.json(ticket);
   }
 
   public async delete(request: Request, response: Response): Promise<void> {

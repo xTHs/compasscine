@@ -14,7 +14,7 @@ class ShowMovieService {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
     const movie = await moviesRepository.findOne(movie_id, {
-      relations: ['sessions'],
+      relations: ['sessions', 'sessions.tickets'],
     });
 
     if (!movie) {

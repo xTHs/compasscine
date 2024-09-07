@@ -21,7 +21,7 @@ class UpdateMovieService {
   ): Promise<Movie> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movie = await moviesRepository.findByIdUpdate(id);
+    const movie = await moviesRepository.findById(id);
 
     if (!movie) {
       throw new AppError('Movie not found', 'Bad Request', 400);

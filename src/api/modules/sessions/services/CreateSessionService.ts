@@ -4,6 +4,7 @@ import SessionRepository from '../typeorm/repositories/SessionRepository';
 import MoviesRepository from '../../movies/typeorm/repositories/MoviesRepository';
 import AppError from 'src/api/shared/errors/AppError';
 import Movie from '../../movies/typeorm/entities/Movie';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   room: string;
@@ -48,7 +49,7 @@ class CreateSessionService {
     session.movie = movie;
 
     await sessionRepository.save(session);
-    return session;
+    return instanceToInstance(session);
   }
 }
 

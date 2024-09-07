@@ -45,23 +45,18 @@ export default class TicketsController {
     return response.json(ticket);
   }
 
-  public async delete(request: Request, response: Response): Promise<void> {
-    const { chair, value } = request.body;
-    const { session_id, movie_id, id } = request.params;
-
-    const ticketId = Number(id);
-    const sessionId = Number(session_id);
-    const movieId = Number(movie_id);
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const movie_id = request.params.movie_id;
+    const session_id = request.params.session_id;
+    const id = request.params.id;
 
     const deleteTicket = new DeleteTicketService();
 
-    await deleteTicket.execute({
-      id: ticketId,
-      chair,
-      value,
-      session_id: sessionId,
-      movie_id: movieId,
-    });
+    await deleteTicket.execute(
+      { movie_id: Number(movie_id) },
+      { session_id: Number(session_id) },
+      { id: Number(id) },
+    );
     return response.status(204).send('Ticket deleted');
   }
 }

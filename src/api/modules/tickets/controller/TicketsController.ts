@@ -42,7 +42,8 @@ export default class TicketsController {
       { id, session_id, movie_id },
     );
 
-    return response.json(ticket);
+    const ticketDTO = new TicketDTO(ticket);
+    return response.json(ticketDTO);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

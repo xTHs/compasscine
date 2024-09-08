@@ -39,10 +39,6 @@ ticketsRouter.put(
 ticketsRouter.delete(
   '/:movie_id/sessions/:session_id/tickets/:id',
   celebrate({
-    [Segments.BODY]: {
-      chair: Joi.string().required(),
-      value: Joi.number().precision(2).required(),
-    },
     [Segments.PARAMS]: {
       id: Joi.string().required(),
       session_id: Joi.string().required(),

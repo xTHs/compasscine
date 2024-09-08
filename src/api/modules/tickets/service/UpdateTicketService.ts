@@ -48,7 +48,7 @@ class UpdateTicketService {
 
     await ticketsRepository.save(ticket);
 
-    return instanceToInstance(ticket);
+    return ticket;
   }
 }
 

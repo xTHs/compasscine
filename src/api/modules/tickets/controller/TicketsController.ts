@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import CreateTicketService from '../service/CreateTicketService';
 import UpdateTicketService from '../service/UpdateTicketService';
 import DeleteTicketService from '../service/DeleteTicketService';
-import TicketsRepository from '../typeorm/repositories/TicketsRepository';
 import TicketDTO from '../dto/TickectDTO';
 
 export default class TicketsController {
@@ -22,7 +21,8 @@ export default class TicketsController {
       { session_id: Number(session_id) },
     );
 
-    return response.json(ticket);
+    const ticketDTO = new TicketDTO(ticket);
+    return response.json(ticketDTO);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

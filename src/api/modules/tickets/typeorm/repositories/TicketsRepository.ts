@@ -80,9 +80,12 @@ class TicketsRepository extends Repository<Ticket> {
     const ticket = await this.findOne({
       where: {
         id,
-        movie: { id: movie_id },
-        session: { id: session_id },
+        session: {
+          id: session_id,
+          movie: { id: movie_id },
+        },
       },
+      relations: ['session', 'session.movie'],
     });
 
     return ticket;

@@ -8,7 +8,6 @@ export default class SessionController {
     const { room, capacity, day, time } = request.body;
 
     const movie_id = request.params.movie_id;
-    console.log(movie_id);
     const createSession = new CreateSessionService();
 
     const session = await createSession.execute(

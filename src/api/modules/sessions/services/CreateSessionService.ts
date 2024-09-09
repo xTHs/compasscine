@@ -10,7 +10,7 @@ interface IRequest {
   room: string;
   capacity: number;
   day: Date;
-  time: Date;
+  time: string;
 }
 interface moviedID {
   movie_id: number;

@@ -39,7 +39,7 @@ class Session {
   day: Date;
 
   @Column()
-  time: Date;
+  time: string;
 
   @CreateDateColumn()
   @Exclude()

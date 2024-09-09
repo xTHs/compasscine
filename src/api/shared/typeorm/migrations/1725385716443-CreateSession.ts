@@ -26,7 +26,7 @@ export class CreateSession1725385716443 implements MigrationInterface {
           },
           {
             name: 'time',
-            type: 'datatime',
+            type: 'varchar',
           },
           {
             name: 'movie_id',

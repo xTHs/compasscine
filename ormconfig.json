@@ -1,0 +1,16 @@
+{
+  "type": "sqlite",
+  "host": "localhost",
+  "port": 5000,
+  "username": "sqlite",
+  "password": "projeto",
+  "database": "compasscine",
+  "entities": ["./src/api/**/**/typeorm/entities/*.ts"],
+  "migrations": [
+    "./src/api/shared/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/api/shared/typeorm/migrations"
+  }
+}
+

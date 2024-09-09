@@ -3,6 +3,7 @@ import ListMoviesService from '../services/ListMoviesService';
 import CreateMovieService from '../services/CreateMovieService';
 import { instanceToInstance } from 'class-transformer';
 import ShowMovieService from '../services/ShowMovieService';
+import movieDTO from '../dto/movieDTO';
 
 export default class MoviesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -34,7 +35,8 @@ export default class MoviesController {
     const showMovie = new ShowMovieService();
     const movie = await showMovie.execute({ movie_id: Number(movie_id) });
 
-    return response.status(200).json(instanceToInstance(movie));
+    const moviVO = new movieDTO(movie);
+    return response.status(200).json(moviVO);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

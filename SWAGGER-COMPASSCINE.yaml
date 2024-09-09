@@ -15,7 +15,7 @@ paths:
       parameters:
         - name: title
           in: query
-          description: List of films
+          description: List of movie
           required: false
           style: form
           explode: true
@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateFilm'
+                $ref: '#/components/schemas/Movie'
     post:
       tags:
         - Movies
@@ -36,7 +36,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateFilm'
+              $ref: '#/components/schemas/Movie'
       responses:
         '200':
           description: successfully registered device
@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateFilm'
+                $ref: '#/components/schemas/Movie'
     put:
       tags:
         - Movies
@@ -78,14 +78,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateFilm'
+              $ref: '#/components/schemas/Movie'
       responses:
         '200':
           description: Movie updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateFilm'
+                $ref: '#/components/schemas/Movie'
     delete:
       tags:
         - Movies
@@ -121,7 +121,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateSession'
+              $ref: '#/components/schemas/Session'
         required: true
       responses:
         '201':
@@ -129,7 +129,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateSession'
+                $ref: '#/components/schemas/Session'
   /movies/{movie_id}/sessions/{id}:
     put:
       tags:
@@ -157,7 +157,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateSession'
+              $ref: '#/components/schemas/Session'
         required: true
       responses:
         '200':
@@ -165,7 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateSession'
+                $ref: '#/components/schemas/Session'
         '404':
           description: Session not found
     delete:
@@ -221,7 +221,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateTicket'
+              $ref: '#/components/schemas/Session'
         required: true
       responses:
         '201':
@@ -229,7 +229,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTicket'
+                $ref: '#/components/schemas/Session'
         '400':
           description: Invalid entry
   /movies/{movie_id}/sessions/{session_id}/tickets/{id}:
@@ -267,7 +267,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateTicket'
+              $ref: '#/components/schemas/Ticket'
         required: true
       responses:
         '200':
@@ -275,7 +275,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTicket'
+                $ref: '#/components/schemas/Ticket'
         '404':
           description: Ticket not found
     delete:
@@ -333,7 +333,7 @@ components:
         sessions:
           type: array
           items:
-            $ref: '#/components/schemas/CreateSession'
+            $ref: '#/components/schemas/Session'
     Session:
       type: object
       properties:
@@ -353,7 +353,7 @@ components:
         tickets:
           type: array
           items:
-            $ref: '#/components/schemas/CreateTicket'
+            $ref: '#/components/schemas/Ticket'
     Ticket:
       type: object
       properties:

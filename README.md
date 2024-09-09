@@ -6,12 +6,33 @@ Welcome!
 This is a REST API developed for a cinema ticketing system.
 The quick guide below will help you set up and run the project in just a few steps. Let's get started!
 
-## Features
+## EndPoints
 
-- Registration of Movies / Sessions / Tickets
-- Updating and removing records
-- Listing movies / sessions / tickets
-- Deleting movies / sessions / tickets
+#### You can consume this API using Insomnia or Postman
+#### The server will run on localhost:3333/api
+
+### Movies
+
+- **GET** `/movies`
+- **GET** `/movies/:id`
+- **POST** `/movies`
+- **PUT** `/movies/:id`
+- **DELETE** `/movies/:id`
+
+### Sessions
+
+ - POST `/movies/{movie_id}/sessions`
+ - PUT `/movies/{movie_id}/sessions/:id`
+ - DELETE `/movies/{movie_id}/sessions/:id`
+
+### Tickets 
+
+ - POST `/movies/{movie_id}/sessions/{session_id}/tickets`
+ - PUT  `/movies/{movie_id}/sessions/{session_id}/tickets/:id`
+ - DELETE `/movies/{movie_id}/sessions/{session_id}/tickets/:id`
+
+
+
 
 ## Prerequisites
 
@@ -66,6 +87,8 @@ To view and manipulate the data directly in the database, you can use SQLite.
 
 Now you're ready to explore the CompassCine project.
 
+
+
 # PORTUGUÊS
 
 # Sobre
@@ -74,12 +97,33 @@ Bem-vindo!
 Essa é uma API REST desenvolvida para a bilheteria de um cinema.
 O guia rápido abaixo irá ajudá-lo a configurar e rodar o projeto em poucos passos. Vamos lá!
 
-## Funcionalidades
 
-- Cadastro de Filmes / sessões / tickets
-- Atualização e remoção de registros
-- Listagem de filmes / sessões / tickets
-- Deleção de filmes / sessões / tickets
+
+## EndPoints 
+
+#### Você pode consumir essa API utilizando o Insomnia ou Postman
+ 
+### Filmes
+
+- **GET** `/movies`
+- **GET** `/movies/:id`
+- **POST** `/movies`
+- **PUT** `/movies/:id`
+- **DELETE** `/movies/:id`
+
+### Sessões
+
+ - POST `/movies/{movie_id}/sessions`
+ - PUT `/movies/{movie_id}/sessions/:id`
+ - DELETE `/movies/{movie_id}/sessions/:id`
+
+### Ingressos
+
+ - POST `/movies/{movie_id}/sessions/{session_id}/tickets`
+ - PUT  `/movies/{movie_id}/sessions/{session_id}/tickets/:id`
+ - DELETE `/movies/{movie_id}/sessions/{session_id}/tickets/:id`
+
+
 
 ## Pré-requisitos
 
@@ -132,4 +176,7 @@ Para visualizar e manipular os dados diretamente no banco, você pode usar o SQL
 
        http://localhost:3333/api-docs/
 
+
 Agora você está pronto para explorar o projeto CompassCine.
+
+

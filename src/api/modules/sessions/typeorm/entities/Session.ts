@@ -29,7 +29,10 @@ class Session {
   })
   movie: Movie | undefined;
 
-  @OneToMany(() => Ticket, ticket => ticket.session)
+  @OneToMany(() => Ticket, ticket => ticket.session, {
+    cascade: true,
+    eager: true,
+  })
   tickets: Ticket[];
 
   @Column()

@@ -18,6 +18,16 @@ export default class movieDTO {
     this.release_date = movie.release_date;
     this.sessions = SessionDTO.convertSessionInSessionDTO(movie.sessions);
   }
+
+  static convertListMoviesInDTO(movies: Movie[]) {
+    if (!movies) {
+      return [];
+    } else {
+      const moviess: movieDTO[] = [];
+      for (let i = 0; i < movies.length; i++) {
+        moviess.push(new movieDTO(movies[i]));
+      }
+      return moviess;
+    }
+  }
 }
-
-

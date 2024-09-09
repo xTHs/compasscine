@@ -29,7 +29,9 @@ export default class MoviesController {
 
     const movies = await listMovies.execute();
 
-    return response.status(200).json(instanceToInstance(movies));
+    const moviesDTO = movieDTO.convertListMoviesInDTO(movies);
+
+    return response.status(200).json(moviesDTO);
   }
 
   public async show(request: Request, response: Response): Promise<Response> {

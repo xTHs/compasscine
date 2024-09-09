@@ -3,7 +3,8 @@ import ListMoviesService from '../services/ListMoviesService';
 import CreateMovieService from '../services/CreateMovieService';
 import { instanceToInstance } from 'class-transformer';
 import ShowMovieService from '../services/ShowMovieService';
-import movieDTO from '../dto/movieDTO';
+import UpdateMovieService from '../services/UpdateMovieService';
+import DeleteMovieService from '../services/DeleteMovieService';
 
 export default class MoviesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -35,27 +36,25 @@ export default class MoviesController {
     const showMovie = new ShowMovieService();
     const movie = await showMovie.execute({ movie_id: Number(movie_id) });
 
-    const moviVO = new movieDTO(movie);
-    return response.status(200).json(moviVO);
+    return response.status(200).json(instanceToInstance(movie));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { image, name, description, actors, genre, release_date, sessions } =
-      request.body;
-    const { id } = request.params;
+    const id = parseInt(request.params.id);
+    const { name, description, actors, genre, release_date } = request.body;
 
     const updateMovie = new UpdateMovieService();
 
-    const movie = await updateMovie.execute({
-      id,
-      image,
-      name,
-      description,
-      actors,
-      genre,
-      release_date,
-      sessions,
-    });
+    const movie = await updateMovie.execute(
+      {
+        name,
+        description,
+        actors,
+        genre,
+        release_date,
+      },
+      { id },
+    );
 
     return response.json(movie);
   }
@@ -64,8 +63,6 @@ export default class MoviesController {
     const { id } = request.params;
     const deleteMovie = new DeleteMovieService();
     await deleteMovie.execute({ id });
-
-    //confirmar resposta com o time
-    return response.status(204).send();
+    return response.status(204).send('Movie deleted');
   }
 }

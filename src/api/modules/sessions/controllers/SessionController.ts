@@ -26,8 +26,7 @@ export default class SessionController {
     const deleteSession = new DeleteSessionService();
 
     await deleteSession.execute({ id }, { movie_id });
-    console.log(id);
-    return response.status(204).json('Session deletada');
+    return response.status(204).json('Session deleted');
   }
 
   public async update(request: Request, response: Response) {

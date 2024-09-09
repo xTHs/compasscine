@@ -57,17 +57,35 @@ class TicketsRepository extends Repository<Ticket> {
     id: number,
     movie_id: number,
     session_id: number,
-    value: number,
-    chair: string,
   ): Promise<Ticket | undefined> {
     const ticket = await this.findOne({
       where: {
         id,
-        movie: { id: movie_id },
-        session: { id: session_id },
-        value,
-        chair,
+        session: {
+          id: session_id,
+          movie: { id: movie_id },
+        },
       },
+      relations: ['session', 'session.movie'],
+    });
+
+    return ticket;
+  }
+
+  public async findTicketforDelete(
+    id: number,
+    movie_id: number,
+    session_id: number,
+  ): Promise<Ticket | undefined> {
+    const ticket = await this.findOne({
+      where: {
+        id,
+        session: {
+          id: session_id,
+          movie: { id: movie_id },
+        },
+      },
+      relations: ['session', 'session.movie'],
     });
 
     return ticket;

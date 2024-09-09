@@ -7,10 +7,16 @@ import bodyParser from 'body-parser';
 import { errors } from 'celebrate';
 import AppError from './src/api/shared/errors/AppError';
 
+import swaggerUI from 'swagger-ui-express';
+import YAML from 'yamljs';
+
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const swaggerDocument = YAML.load('./SWAGGER-COMPASSCINE.yaml');
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/api/movies', routes);
 

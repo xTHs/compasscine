@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import CreateTicketService from '../service/CreateTicketService';
 import UpdateTicketService from '../service/UpdateTicketService';
 import DeleteTicketService from '../service/DeleteTicketService';
-import TicketsRepository from '../typeorm/repositories/TicketsRepository';
 import TicketDTO from '../dto/TickectDTO';
 
 export default class TicketsController {
@@ -11,7 +10,6 @@ export default class TicketsController {
     const session_id = request.params.session_id;
 
     const { chair, value } = request.body;
-
     const createTicket = new CreateTicketService();
 
     const ticket = await createTicket.execute(
@@ -28,49 +26,38 @@ export default class TicketsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { chair, value } = request.body;
-    const { session_id, movie_id, id } = request.params;
+    const id = parseInt(request.params.id);
+    const movie_id = parseInt(request.params.movie_id);
+    const session_id = parseInt(request.params.session_id);
 
-    const ticketId = Number(id);
-    const sessionId = Number(session_id);
-    const movieId = Number(movie_id);
+    const { chair, value } = request.body;
 
     const updateTicket = new UpdateTicketService();
 
-    const ticket = await updateTicket.execute({
-      id: ticketId,
-      chair,
-      value,
-      session_id: sessionId,
-      movie_id: movieId,
-    });
+    const ticket = await updateTicket.execute(
+      {
+        chair,
+        value,
+      },
+      { id, session_id, movie_id },
+    );
 
-    const ticketReturn = {
-      id: ticket.id,
-      session_id: ticket.session,
-      chair: ticket.chair,
-      value: ticket.value,
-    };
-
-    return response.json(ticketReturn);
+    const ticketDTO = new TicketDTO(ticket);
+    return response.json(ticketDTO);
   }
 
-  public async delete(request: Request): Promise<void> {
-    const { chair, value } = request.body;
-    const { session_id, movie_id, id } = request.params;
-
-    const ticketId = Number(id);
-    const sessionId = Number(session_id);
-    const movieId = Number(movie_id);
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const movie_id = request.params.movie_id;
+    const session_id = request.params.session_id;
+    const id = request.params.id;
 
     const deleteTicket = new DeleteTicketService();
 
-    await deleteTicket.execute({
-      id: ticketId,
-      chair,
-      value,
-      session_id: sessionId,
-      movie_id: movieId,
-    });
+    await deleteTicket.execute(
+      { movie_id: Number(movie_id) },
+      { session_id: Number(session_id) },
+      { id: Number(id) },
+    );
+    return response.status(204).send('Ticket deleted');
   }
 }

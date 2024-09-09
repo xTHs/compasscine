@@ -2,30 +2,28 @@ import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import TicketsRepository from '../typeorm/repositories/TicketsRepository';
 
-interface IRequest {
-  id: number;
-  chair: string;
-  value: number;
+interface sessionID {
   session_id: number;
+}
+interface moviedID {
   movie_id: number;
+}
+interface idID {
+  id: number;
 }
 
 class DeleteTicketService {
-  public async execute({
-    id,
-    movie_id,
-    session_id,
-    value,
-    chair,
-  }: IRequest): Promise<void> {
+  public async execute(
+    { movie_id }: moviedID,
+    { session_id }: sessionID,
+    { id }: idID,
+  ): Promise<void> {
     const ticketsRepository = getCustomRepository(TicketsRepository);
 
-    const ticket = await ticketsRepository.findTicketforUpdateAndDelete(
+    const ticket = await ticketsRepository.findTicketforDelete(
       id,
       movie_id,
       session_id,
-      value,
-      chair,
     );
 
     if (!ticket) {

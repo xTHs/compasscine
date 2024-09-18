@@ -2,6 +2,7 @@ import AppError from 'src/api/shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Movie from '../typeorm/entities/Movie';
 import MoviesRepository from '../typeorm/repositories/MoviesRepository';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   name: string;
@@ -42,7 +43,7 @@ class UpdateMovieService {
 
     await moviesRepository.save(movie);
 
-    return movie;
+    return instanceToInstance(movie);
   }
 }
 

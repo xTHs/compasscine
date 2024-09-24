@@ -27,7 +27,7 @@ class DeleteTicketService {
     );
 
     if (!ticket) {
-      throw new AppError(`Ticket não encontrado`, 'Not Found', 404);
+      throw new AppError(`Ticket not found`, 'Not Found', 404);
     }
 
     await ticketsRepository.remove(ticket);

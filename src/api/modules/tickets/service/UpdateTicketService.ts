@@ -28,7 +28,7 @@ class UpdateTicketService {
     );
 
     if (!ticket) {
-      throw new AppError(`Ticket não encontrado`, 'Not Found', 404);
+      throw new AppError(`Ticket not found`, 'Not Found', 404);
     }
 
     const chairSessionExists = await ticketsRepository.findByChairAndSession(
@@ -38,7 +38,7 @@ class UpdateTicketService {
 
     if (chairSessionExists && chair !== ticket.chair) {
       throw new AppError(
-        `O assento ${chair} já foi reservado para esta sessão.`,
+        `The chair ${chair} has already been reserved for this session.`,
         'Bad Request',
       );
     }
